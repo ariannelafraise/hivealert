@@ -1,11 +1,23 @@
 name: ssh-login
+description: Rule that detects successful SSH connections to user "arianne", then logs the event to a Discord webhook
 on-fields:
   type: "USER_LOGIN"
-  msg2.exe: "\"/usr/lib/openssh/sshd-session\""
+  msg2.exe: "/usr/lib/openssh/sshd-session"
   msg2.id: "1000"
   msg2.res: "success"
-webhook: 
-  url: "https://discord.com/api/webhooks/1393405744417869854/8yvSe7teWBNrImJ_a-2VqFuT4sov79Xb3_o8oK2isbOUDdTFOw7Hoae0bv4ANY1pBRAX"
-  title: "🚨 Detected - SSH Login"
-  description: "{0.msg2.hostname} connected to UID {0.msg2.id} (arianne)"
-  color: fc99f7
+webhook:
+  url: "https://discord.com/api/webhooks/1522028103147458600/HVX5hOFCqwtt02tuOWvhr2vVsDUAcjQC_OKUttW87vjLO04rEdStf15KnJcYmy8Loj1d"
+  payload: |-
+    {
+      "embeds": [
+        {
+          "title": "Detected - SSH Login",
+          "description": "${0.msg2.hostname} connected to UID ${0.msg2.id} (arianne)",
+          "color": 16554487
+        }
+      ]
+    }
+  headers: |-
+    {
+      "Authorization": "Bearer xxxxxxxxxxx"
+    }

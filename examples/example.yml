@@ -1,0 +1,21 @@
+name: rule-name
+description: rule description
+on-fields:
+  fieldname: "expected value"
+  field.subfield: "expected value"
+webhook:
+  url: "https://example.com"
+  payload: |-
+    {
+      "embeds": [
+        {
+          "title": "Detected event",
+          "description": "Something happened: ${record_index.field.subfield} ${0.msg2.id}",
+          "color": 16554487
+        }
+      ]
+    }
+  headers: |-
+    {
+      "Authorization": "Bearer xxxxxxxxxxx"
+    }

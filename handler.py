@@ -4,9 +4,10 @@ from pathlib import Path
 import re
 import requests
 import yaml
+import json
 
-RULES_DIR = "/etc/hivealert/rules"
-
+#RULES_DIR = "/etc/hivealert/rules"
+RULES_DIR = "/home/arianne/projects/hivealert/examples"
 
 class RulesHandler(AuditEventHandler):
     def __init__(self):
@@ -49,22 +50,13 @@ class RulesHandler(AuditEventHandler):
 
             return str(event.records[int(record_index)].get_field_value(field))
 
-        return re.sub(r"\{([^{}]+)\}", repl, string)
+        return re.sub(r"\${([^${}]+)\}", repl, string)
 
     def handle(self, event: AuditEvent):
         for r in self._rules:
             if self._rule_match(r, event):
-                payload = {
-                    "embeds": [
-                        {
-                            "title": self._fill_vars(r["webhook"]["title"], event),
-                            "description": self._fill_vars(
-                                r["webhook"]["description"], event
-                            ),
-                            "color": int(r["webhook"]["color"], 16),
-                        }
-                    ]
-                }
-
-                res = requests.post(r["webhook"]["url"], json=payload)
-                print(res.status_code)
+                requests.post(
+                    r["webhook"]["url"],
+                    json=json.loads(self._fill_vars(r["webhook"]["payload"], event)),
+                    headers= json.loads(r["webhook"]["headers"]) if "headers" in r["webhook"] != None else None
+                    )
