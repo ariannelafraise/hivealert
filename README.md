@@ -4,7 +4,7 @@
 An [HiveSec](https://github.com/ariannelafraise/hivesec) application that takes YAML rules to react to Auditd events by sending webhook alerts.
 
 ## How to use (by an example)
-The following Auditd event logs an "accept" syscall from "sshd" executable. It is composed of 3 records
+The following Auditd event logs an "accept" syscall from the "sshd" executable. It is composed of 3 records.
 ```
 type=SYSCALL msg=audit(1782338491.198:398): arch=c000003e syscall=43 success=yes exit=8 a0=3 a1=7ffdf585abf0 a2=7ffdf585ab28 a3=0 items=0 ppid=1 pid=1914 auid=4294967295 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0 tty=(none) ses=4294967295 comm="sshd" exe="/usr/sbin/sshd" subj=unconfined
 type=SOCKADDR msg=audit(1782338491.198:398): saddr=0200E2B4C0A87A540000000000000000
@@ -43,7 +43,7 @@ webhook:
 ```
 HiveAlert...
 1. Verifies that the fields match
-2. Sends the given payload (mandatory) to the given url (mandatory) with the given headers (optional)
+2. Sends the given payload (mandatory) to the given url (mandatory) with the given headers (optional) using a POST HTTP request.
 
 The ${variables} are replaced with the values from the Auditd event.
 
