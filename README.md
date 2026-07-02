@@ -51,6 +51,10 @@ They follow this standard: ${record_index.field.subfield}
 
 For example, ${0.exe} is the exe field of the first record of the event.
 
+This gives:
+
+![](./media/example-screenshot.png)
+
 ## Installation
 1. Install [HiveSec](https://github.com/ariannelafraise/hivesec).
 2. Clone this repository anywhere you'd like to install it.
